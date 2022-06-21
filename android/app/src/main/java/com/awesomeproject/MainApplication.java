@@ -10,6 +10,9 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import android.content.Intent;
+import android.os.Bundle;
+import com.facebook.react.HeadlessJsTaskService;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -43,8 +46,18 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+
+    Intent service = new Intent(getApplicationContext(), MyTaskService.class);
+    Bundle bundle = new Bundle();
+    bundle.putString("foo", "bar");
+    service.putExtras(bundle);
+    getApplicationContext().startService(service);
+
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+
+
+
   }
 
   /**

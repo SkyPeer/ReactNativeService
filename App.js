@@ -1,4 +1,5 @@
 import React from 'react';
+import {AppRegistry} from 'react-native';
 import type {Node} from 'react';
 import {
   Button,
@@ -72,6 +73,7 @@ const App: () => Node = () => {
           {/* <Button>Войти</Button> */}
           <View style={{padding: 10}}>
           <Button title='Войти' />
+              <Button title='TTT' onPress={()=>console.log('tttt1111')} />
           </View>
           
           {/* <Section title="See Your Changes">
