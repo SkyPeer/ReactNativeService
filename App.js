@@ -1,112 +1,95 @@
-import React from 'react';
-import type {Node} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
-  View
+  StyleSheet, Text, View, TouchableOpacity, Image, TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
+import Heartbeat from './Heartbeat';
+import heart from './heart.png';
+import axios from "axios";
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  view: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: 'gray',
+    padding: 10,
+    margin: 10,
+  },
+  text: {
+    fontSize: 20,
+    color: 'white',
+  },
+});
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+//https://github.com/react-native-netinfo/react-native-netinfo
+
+const App = ({ heartBeat }) => {
+  const imageSize = heartBeat ? 150 : 100;
+
+  const [resData, setResData] = useState('')
+
+  useEffect(()=>{
+    if(heartBeat) {
+      ttt()
+    }
+
+  },[heartBeat])
+
+  const ttt = async ()=>{
+    try {
+      const data = await fetch('')
+      console.log('data', data.status)
+      setResData(data.status)
+    } catch (e) {
+      setResData(String(e))
+    }
+  }
+
+
+  const foo = async ()=>{
+    try {
+      const data = await fetch('')
+      console.log('data', data.status)
+      setResData(data.status)
+    } catch (e) {
+      setResData(String(e))
+    }
+  }
+
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={styles.container}>
+      <View style={styles.view}>
+        <Image source={heart} style={{ width: imageSize, height: imageSize }} resizeMode="contain" />
+      </View>
+      <TextInput multiline
+                 numberOfLines={20} value={String(resData)} />
+      <View style={styles.view}>
+        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.startService()}>
+          <Text style={styles.instructions}>Start</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => Heartbeat.stopService()}>
+          <Text style={styles.instructions}>Stop</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => foo()}>
+          <Text style={styles.instructions}>TEST</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        {/* <Header/> */}
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="TestApp as Service">
-            ReactNativeTest App <Text style={styles.highlight}>as Service</Text>
-          </Section>
-          <TextInput placeholder='email' style={{backgroundColor: 'lightgray', borderRadius: 10, margin: 10, padding: 10}} />
-          <TextInput placeholder='пароль' style={{backgroundColor: 'lightgray', borderRadius: 10, margin: 10, padding: 10}} />
-          {/* <Button>Войти</Button> */}
-          <View style={{padding: 10}}>
-          <Button title='Войти' />
-          </View>
-          
-          {/* <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks /> */}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+const mapStateToProps = store => ({
+  heartBeat: store.App.heartBeat,
 });
 
-export default App;
+export default connect(mapStateToProps)(App);
