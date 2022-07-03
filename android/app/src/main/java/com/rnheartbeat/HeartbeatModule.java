@@ -12,10 +12,13 @@ public class HeartbeatModule extends ReactContextBaseJavaModule {
 
     public static final String REACT_CLASS = "Heartbeat";
     private static ReactApplicationContext reactContext;
+    boolean checker = false;
+    public int a = 111;
 
     public HeartbeatModule(@Nonnull ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
+
     }
 
     @Nonnull
@@ -26,11 +29,31 @@ public class HeartbeatModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void startService() {
-        this.reactContext.startService(new Intent(this.reactContext, HeartbeartService.class));
+//         this.reactContext.startService(new Intent(this.reactContext, HeartbeartService.class));
+        if(checker) {
+            System.out.println("-----");
+            System.out.println("Service already started");
+            System.out.println("-----");
+        } else {
+            this.checker = true;
+            System.out.println("-----");
+            System.out.println("Start Service");
+            System.out.println("-----");
+            this.reactContext.startService(new Intent(this.reactContext, HeartbeartService.class));
+        }
     }
 
     @ReactMethod
     public void stopService() {
+        this.checker = false;
+        System.out.println("-----");
+        System.out.println("Try to stop service");
+        System.out.println("-----");
         this.reactContext.stopService(new Intent(this.reactContext, HeartbeartService.class));
+    }
+
+    @ReactMethod(isBlockingSynchronousMethod = true)
+    public boolean checkService(){
+        return this.checker;
     }
 }

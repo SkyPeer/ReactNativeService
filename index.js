@@ -6,7 +6,7 @@ import { name as appName } from './app.json';
 import { setHeartBeat, store } from './store';
 
 const MyHeadlessTask = async () => {
-  console.log('Receiving HeartBeat!');
+  // console.log('Receiving HeartBeat!');
   store.dispatch(setHeartBeat(true));
   setTimeout(() => {
     store.dispatch(setHeartBeat(false));
