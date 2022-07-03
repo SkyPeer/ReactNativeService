@@ -27,6 +27,7 @@ const App = handleActions({
         SET_DATA: (state, {payload}) => {
             return {
                 ...state,
+                counter: ++state.counter,
                 arr: [...state.arr, payload]
 
             }
@@ -35,6 +36,7 @@ const App = handleActions({
         RESET_DATA: (state, {payload}) => {
             return {
                 ...state,
+                counter: 0,
                 arr: []
 
             }

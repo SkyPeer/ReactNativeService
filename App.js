@@ -43,11 +43,11 @@ const App = ({ heartBeat, counter, arr }) => {
 
   // const [resData, setResData] = useState('')
 
-  useEffect(()=>{
-    if(heartBeat) {
-      ttt()
-    }
-  },[heartBeat])
+  // useEffect(()=>{
+  //   if(heartBeat) {
+  //     ttt()
+  //   }
+  // },[heartBeat])
 
   const getLogData = ()=> {
     return arr.toString()
@@ -55,7 +55,7 @@ const App = ({ heartBeat, counter, arr }) => {
 
   const ttt = async ()=>{
     try {
-      const data = await fetch('https://yandex.ru')
+      const data = await fetch('')
       store.dispatch(setDataAction(String('  -> Status: ' +data.status + ':' + getTime() + '  ')))
     } catch (e) {
       store.dispatch(setDataAction(String(e + ':' + getTime())))
