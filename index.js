@@ -11,11 +11,11 @@ const getTime = ()=> {
 };
 
 const MyHeadlessTask = async () => {
-  // console.log('Receiving HeartBeat!');
-  testFetchData()
+  console.log('Receiving HeartBeat!');
+  await testFetchData()
 };
 
-const ttt = async () => {
+const testFetchData = async () => {
   try {
     const data = await fetch('')
     store.dispatch(setDataAction(String('  -> Status: ' + data.status + ':' + getTime() + '  ')))
