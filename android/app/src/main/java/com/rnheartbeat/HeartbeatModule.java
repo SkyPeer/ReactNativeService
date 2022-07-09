@@ -13,12 +13,10 @@ public class HeartbeatModule extends ReactContextBaseJavaModule {
     public static final String REACT_CLASS = "Heartbeat";
     private static ReactApplicationContext reactContext;
     boolean checker = false;
-    public int a = 111;
 
     public HeartbeatModule(@Nonnull ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
-
     }
 
     @Nonnull
