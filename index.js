@@ -28,7 +28,7 @@ const MyHeadlessTask = async () => {
 const testFetchData = async () => {
   store.dispatch(increaseAttempt())
   try {
-    await fetch('https://yandex.ru')
+    await fetch('')
     store.dispatch(increaseReceived())
   } catch (e) {
     store.dispatch(increaseFailed())
