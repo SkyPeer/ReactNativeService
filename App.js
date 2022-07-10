@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Heartbeat from "./Heartbeat";
 import { resetDataAction, store } from "./store";
 
+
 const getTime = () => {
   const currentDate = new Date();
   return String(currentDate);
