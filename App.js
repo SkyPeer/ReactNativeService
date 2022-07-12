@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput } from "react-native";
 import { connect } from "react-redux";
 import Heartbeat from "./Heartbeat";
-import { resetDataAction, store } from "./store";
-
 
 const getTime = () => {
   const currentDate = new Date();
@@ -37,7 +35,7 @@ const styles = StyleSheet.create({
 //https://github.com/react-native-netinfo/react-native-netinfo
 // npx react-native run-android --variant=release
 
-const App = ({ heartBeat, attempt, received, failed }) => {
+const App = ({ heartBeat, attempt, received, failed, loaded }) => {
   const imageSize = heartBeat ? 150 : 100;
 
   const [logData, setLogData] = useState('');
@@ -66,6 +64,7 @@ const App = ({ heartBeat, attempt, received, failed }) => {
           <Text>Attempt: {attempt}</Text>
           <Text>Received: {received}</Text>
           <Text>Failed: {failed}</Text>
+          <Text>Loaded: {loaded ? 'true' : 'false'}</Text>
           <TextInput multiline
                      style={{ borderWidth: 1.0, minWidth: 150, maxHeight: 200 }}
                      scrollEnabled={true}
@@ -97,6 +96,7 @@ const mapStateToProps = store => ({
   attempt: store.App.attempt,
   received: store.App.received,
   failed: store.App.failed,
+  loaded: store.App.loaded,
 });
 
 export default connect(mapStateToProps)(App);

@@ -28,7 +28,7 @@ public class HeartbeartService extends Service {
             context.startService(myIntent);
             HeadlessJsTaskService.acquireWakeLockNow(context);
             System.out.println("TRY SEND");
-            handler.postDelayed(this, 30000); // delayToRepeat default 2000
+            handler.postDelayed(this, 2000); // delayToRepeat default 2000
         }
     };
     private void createNotificationChannel() {
@@ -50,6 +50,7 @@ public class HeartbeartService extends Service {
 
     @Override
     public void onCreate() {
+        System.out.println("onCreate --- TTT");
         super.onCreate();
 
     }
